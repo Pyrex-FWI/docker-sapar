@@ -1,5 +1,5 @@
 FROM alpine:3.11
-#FROM php:7.4-alpine3.11
+##FROM php:7.4-alpine3.11
 
 RUN addgroup -S www \
     && adduser -S -G www www
@@ -35,6 +35,7 @@ RUN apk add --update \
     php7-zip \
     php7-sqlite3 \
     php7-pdo_sqlite \
+    php7-pecl-amqp \
     make \
     curl \
     nodejs \
@@ -46,9 +47,9 @@ RUN rm -rf /var/cache/apk/* && rm -rf /tmp/* && \
     curl --insecure https://getcomposer.org/download/1.10.5/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer \
     && wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/bin/symfony && chmod +x /usr/bin/symfony
 
-#ADD php.ini /etc/php7/conf.d/
-#ADD php.ini /etc/php7/cli/conf.d/
-#ADD php-fpm.conf /etc/php7/php-fpm.d/
+ADD php.ini /etc/php7/conf.d/
+ADD php.ini /etc/php7/cli/conf.d/
+ADD php-fpm.conf /etc/php7/php-fpm.d/
 #ADD xdebug.ini  /etc/php7/conf.d/
 
 WORKDIR /var/www/
