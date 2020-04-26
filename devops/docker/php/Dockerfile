@@ -1,5 +1,5 @@
 FROM alpine:3.11
-#FROM php:7.4-alpine3.11
+##FROM php:7.4-alpine3.11
 
 RUN addgroup -S www \
     && adduser -S -G www www
