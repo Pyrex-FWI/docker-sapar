@@ -1,6 +1,9 @@
 FROM alpine:3.11
 ##FROM php:7.4-alpine3.11
 
+ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
+ENV LC_ALL=fr_FR.UTF-8
+ENV LANG=fr_FR.UTF-8
 RUN addgroup -S www \
     && adduser -S -G www www
 
@@ -42,12 +45,10 @@ RUN apk add --no-cache \
     nodejs \
     yarn \
     bash \
+    cmake make musl-dev gcc gettext-dev libintl \
     wget \
-    mediainfo \
-    beets \
-    flac \
-    ffmpeg \
     git \
+    mediainfo beets flac ffmpeg \
     && pip3 install --upgrade pip && \
     pip3 install  --no-cache-dir eyeD3 eyeD3[display-plugin]
 
@@ -58,7 +59,11 @@ RUN rm -rf /var/cache/apk/* && rm -rf /tmp/* && \
     && ln -s /usr/bin/eyeD3 /usr/local/bin/eyeD3
 
 #Locales
-#https://gist.github.com/alextanhongpin/aa55c082a47b9a1b0060a12d85ae7923
+RUN wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    && unzip musl-locales-master.zip \
+      && cd musl-locales-master \
+      && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+      && cd .. && rm -rf musl-locales-master musl-locales-master.zip
 
 ADD php.ini /etc/php7/conf.d/
 ADD php.ini /etc/php7/cli/conf.d/
