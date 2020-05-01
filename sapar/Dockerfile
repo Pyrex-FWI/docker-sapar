@@ -2,8 +2,12 @@ FROM alpine:3.11
 ##FROM php:7.4-alpine3.11
 
 ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
-ENV LC_ALL=fr_FR.UTF-8
-ENV LANG=fr_FR.UTF-8
+ENV LC_ALL fr_FR.UTF-8
+ENV LANG fr_FR.UTF-8
+
+#Monorepo issue with iconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 RUN addgroup -S www \
     && adduser -S -G www www
 
@@ -48,6 +52,7 @@ RUN apk add --no-cache \
     cmake make musl-dev gcc gettext-dev libintl \
     wget \
     git \
+    openssh \
     mediainfo beets flac ffmpeg \
     && pip3 install --upgrade pip && \
     pip3 install  --no-cache-dir eyeD3 eyeD3[display-plugin]
@@ -69,6 +74,9 @@ ADD php.ini /etc/php7/conf.d/
 ADD php.ini /etc/php7/cli/conf.d/
 ADD php-fpm.conf /etc/php7/php-fpm.d/
 #ADD xdebug.ini  /etc/php7/conf.d/
+
+#Monorepo issue with iconv
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
 
 WORKDIR /var/www/
 
