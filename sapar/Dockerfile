@@ -58,7 +58,7 @@ RUN rm -rf /var/cache/apk/* && rm -rf /tmp/* && \
     && ln -s /usr/bin/mediainfo /usr/local/bin/ \
     && ln -s /usr/bin/eyeD3 /usr/local/bin/eyeD3
 
-#Locales
+#Locales https://grrr.tech/posts/2020/add-locales-to-alpine-linux-docker-image/
 RUN wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
     && unzip musl-locales-master.zip \
       && cd musl-locales-master \
