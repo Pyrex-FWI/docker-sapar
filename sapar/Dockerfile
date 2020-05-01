@@ -52,6 +52,7 @@ RUN apk add --no-cache \
     cmake make musl-dev gcc gettext-dev libintl \
     wget \
     git \
+    supervisor \
     openssh \
     mediainfo beets flac ffmpeg \
     && pip3 install --upgrade pip && \
