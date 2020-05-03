@@ -6,7 +6,10 @@ ADD App/Symfony5 /var/www/App/Symfony5
 
 WORKDIR /var/www/
 
-RUN php -dmemory_limit=-1 /usr/bin/composer update --no-dev -d App/Symfony5
+ENV APP_ENV prod
+RUN php -dmemory_limit=-1 /usr/bin/composer update --no-dev -d App/Symfony4 -n
+RUN php -dmemory_limit=-1 /usr/bin/composer update --no-dev -d App/Symfony5 -n
+RUN php App/Symfony5/bin/console doctrine:schema:update --force -n
 
 EXPOSE 8000
 
