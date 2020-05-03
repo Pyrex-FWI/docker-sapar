@@ -3,6 +3,7 @@ FROM yemistikris/docker-sapar:base
 ADD .env /var/www/.env
 ADD App/Symfony4 /var/www/App/Symfony4
 ADD App/Symfony5 /var/www/App/Symfony5
+ADD App/Symfony5/config/supervisor/messenger-worker.conf /etc/supervisor.d/messenger-worker.ini
 
 WORKDIR /var/www/
 
