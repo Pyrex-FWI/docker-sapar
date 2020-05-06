@@ -81,8 +81,6 @@ RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/co
 
 WORKDIR /var/www/
 
-EXPOSE 8000
-
 #CMD ["php-fpm7", "-F"]
 #CMD ["php", "-v"]
-CMD ["symfony", "server:start"]
+#CMD ["symfony", "server:start"]
