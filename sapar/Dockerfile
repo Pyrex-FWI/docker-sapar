@@ -12,8 +12,6 @@ RUN php -dmemory_limit=-1 /usr/bin/composer update --no-dev -d App/Symfony4 -n
 RUN php -dmemory_limit=-1 /usr/bin/composer update --no-dev -d App/Symfony5 -n
 RUN php App/Symfony5/bin/console doctrine:schema:update --force -n
 
-ADD Devops/scripts /var/www/Devops/scripts
-RUN ["chmod", "+x", "/var/www/Devops/scripts/wait-for-it.sh"]
 EXPOSE 8000
 
 #CMD ["php-fpm7", "-F"]

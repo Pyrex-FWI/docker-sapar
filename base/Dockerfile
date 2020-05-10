@@ -54,6 +54,7 @@ RUN apk add --no-cache \
     git \
     supervisor \
     openssh \
+    tzdata \
     mediainfo beets flac ffmpeg \
     && pip3 install --upgrade pip && \
     pip3 install  --no-cache-dir eyeD3 eyeD3[display-plugin]
@@ -79,7 +80,12 @@ ADD php-fpm.conf /etc/php7/php-fpm.d/
 #Monorepo issue with iconv
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
 
+RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/bin/wait-for-it.sh \
+    && chmod +x /usr/bin/wait-for-it.sh
+
 WORKDIR /var/www/
+
+ENV TZ Europe/Paris
 
 #CMD ["php-fpm7", "-F"]
 #CMD ["php", "-v"]
